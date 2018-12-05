@@ -7,8 +7,9 @@
 #include "allele.h"
 
 using namespace std;
-GeneinaBottle::GeneinaBottle(){}
-GeneinaBottle::GeneinaBottle(string inputName, string inputTraitType, Allele alleleA, Allele alleleB){
+GeneinaBottle::GeneinaBottle() {}
+GeneinaBottle::GeneinaBottle(string inputName, string inputTraitType, Allele alleleA, Allele alleleB)
+{
 	name = inputName;
 	traitType = inputTraitType;
 	a = alleleA;
@@ -17,7 +18,7 @@ GeneinaBottle::GeneinaBottle(string inputName, string inputTraitType, Allele all
 
 void GeneinaBottle::createGene()
 {
-	flaredGene = " ";
+
 	cout << "Please name your gene" << endl;
 	getline(cin, name);
 	cin.clear();

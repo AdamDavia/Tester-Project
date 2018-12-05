@@ -20,24 +20,7 @@ void chrom::create(){
 void chrom::analyze(){
 
 };
-void chrom::output()
-{
-
-	cout << "What file would you like to import from?" << endl;
-	string outputFile;
-	getline(cin, outputFile);
-
-	ofstream myfile;
-
-	myfile.open(outputFile);
-
-	for (unsigned i = 0; i < genes.size(); i++)
-	{
-		//Data needs to be stored.
-		//myfile >> chromosomes.at(i);
-	}
-	myfile.close();
-};
+void chrom::output(){};
 void chrom::input()
 {
 

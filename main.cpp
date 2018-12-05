@@ -8,7 +8,6 @@
 #include "allele.h"
 #include "gene.h"
 #include "chromosome.h"
-#include "genesequencer.h"
 
 using namespace std;
 
@@ -28,7 +27,8 @@ void menu(int &menuChoice)
 int main(int argc, char *argv[])
 {
 	int menuChoice = 0;
-	string chromosome = " ";
+
+	vector<chrom> Chromosomes;
 
 	string gName;
 	string gTrait;
@@ -38,38 +38,50 @@ int main(int argc, char *argv[])
 
 	GeneinaBottle gene;
 	chrom myChrom;
+	Allele A;
 
 	while (menuChoice != 6)
 	{
 		menu(menuChoice);
 		if (menuChoice == 1)
 		{
-			Allele a(nucleotideSequence, vName, vType);
 
+			string chromosome = " ";
 			cout << "What is the name of the new gene?" << endl;
 			cin >> gName;
+			gene.setGeneName(gName);
 			cout << "What is the gene trait?" << endl;
 			cin >> gTrait;
+			gene.setGeneTrait(gTrait);
+
 			cout << "What is the allele A nucleotide sequence?" << endl;
 			cin >> nucleotideSequence;
+			A.setNS(nucleotideSequence);
+
 			cout << "What is the allele A variant?" << endl;
 			cin >> vName;
+			A.setName(vName);
 			cout << "what is the allele A type?" << endl;
 			cin >> vType;
-
+			A.setType(vType);
 			Allele A(nucleotideSequence, vName, vType);
-			gene.setAlleleA(a);
+			gene.setAlleleA(A);
 
 			cout << "What is the allele B nucleotide sequence?" << endl;
 			cin >> nucleotideSequence;
+			A.setName(vName);
 			cout << "What is the allele B variant?" << endl;
 			cin >> vName;
+			A.setType(vType);
 			cout << "What is the allele B type?" << endl;
 			cin >> vType;
+			A.setType(vType);
 
 			Allele B(nucleotideSequence, vName, vType);
-			gene.setAlleleB(b);
+			gene.setAlleleB(B);
 
+			myChrom.AddGene(gene);
+			Chromosomes.push_back(myChrom);
 		}
 		else if (menuChoice == 2)
 		{
@@ -82,11 +94,26 @@ int main(int argc, char *argv[])
 		}
 		else if (menuChoice == 3)
 		{
-			cout << "What file would you like to import from?" << endl;
+			cout << "What file would you like to export to?" << endl;
 		}
 		else if (menuChoice == 4)
 		{
-			cout << "What file would you like to export to?" << endl;
+			cout << "What file would you like to import from?" << endl;
+			string outputFile;
+
+			getline(cin, outputFile);
+			string line = "";
+
+			ifstream myfile;
+
+			myfile.open(outputFile);
+			while (getline(myfile, line))
+			{
+				stringstream fudge(line);
+				vector<string> yah;
+				yah.push_back(line);
+			}
+			myfile.close();
 		}
 		else if (menuChoice == 5)
 		{
