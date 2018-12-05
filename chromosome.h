@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "gene.h"
+
 #pragma once
 
 using namespace std;
@@ -9,12 +10,7 @@ using namespace std;
 class chrom
 {
   public:
-	void create();
-	void analyze();
-	void output();
-	void input();
-	void combine();
-	void AddGene(GeneinaBottle);
+	void AddGene(GeneinaBottle g);
 	vector<GeneinaBottle> GetGenes();
 	chrom operator+(chrom c);
 

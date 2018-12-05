@@ -5,9 +5,11 @@
 */
 
 #include <iostream>
+#include <sstream>
 #include "allele.h"
 #include "gene.h"
 #include "chromosome.h"
+#include <vector>
 
 using namespace std;
 
@@ -82,9 +84,7 @@ int main(int argc, char *argv[])
 
 			myChrom.AddGene(gene);
 			Chromosomes.push_back(myChrom);
-		}
-		else if (menuChoice == 2)
-		{
+
 			gene.setGeneName(gName);
 			gene.setGeneTrait(gTrait);
 
@@ -92,9 +92,33 @@ int main(int argc, char *argv[])
 			cout << "Genetic Trait:  " << gene.GetTraitType() << endl;
 			gene.FindGene();
 		}
+		else if (menuChoice == 2)
+		{
+			for (unsigned int i = 0; i < Chromosomes.size(); i++)
+			{
+				for (unsigned int j = 0; j < Chromosomes.at(i).GetGenes().size(); j++)
+				{
+					cout << Chromosomes.at(i).GetGenes().at(j).GetName() << "," << Chromosomes.at(i).GetGenes().at(j).GetTraitType() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleA().getName() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleA().getType() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleA().getNS() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleB().getName() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleB().getType() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleB().getNS();
+				}
+			}
+		}
 		else if (menuChoice == 3)
 		{
 			cout << "What file would you like to export to?" << endl;
+			string outputFile;
+
+			ofstream myfile;
+
+			myfile.open(outputFile);
+
+			for (unsigned int i = 0; i < Chromosomes.size(); i++)
+			{
+				for (unsigned int j = 0; j < Chromosomes.at(i).GetGenes().size(); j++)
+				{
+					myfile << Chromosomes.at(i).GetGenes().at(j).GetName() << "," << Chromosomes.at(i).GetGenes().at(j).GetTraitType() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleA().getName() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleA().getType() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleA().getNS() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleB().getName() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleB().getType() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleB().getNS();
+				}
+			}
+			myfile.close();
 		}
 		else if (menuChoice == 4)
 		{
@@ -102,21 +126,53 @@ int main(int argc, char *argv[])
 			string outputFile;
 
 			getline(cin, outputFile);
-			string line = "";
+			string line;
 
 			ifstream myfile;
 
 			myfile.open(outputFile);
 			while (getline(myfile, line))
 			{
-				stringstream fudge(line);
-				vector<string> yah;
-				yah.push_back(line);
+
+				stringstream ss(line);
+				vector<string> row;
+				string data;
+				while (getline(ss, data, ','))
+				{
+					row.push_back(data);
+				}
+				string tempName = row.at(0);
+				string tempTraitType = row.at(1);
+				Allele tempAlleleA = Allele(row.at(2), row.at(3), row.at(4));
+				Allele tempAlleleB = Allele(row.at(5), row.at(6), row.at(7));
+				string tempOneType;
+				string tempTwoType;
+
+				myChrom.AddGene(GeneinaBottle(tempName, tempTraitType, tempAlleleA, tempAlleleB));
 			}
 			myfile.close();
 		}
 		else if (menuChoice == 5)
 		{
+			if (Chromosomes.size() > 1)
+			{
+				int entry1;
+				int entry2;
+				cout << "Please choose a chromosome." << endl;
+				cin >> entry1;
+
+				cout << "Please choose a chromosome." << endl;
+				cin >> entry2;
+
+				Chromosomes.push_back(Chromosomes.at(entry1 - 1) + Chromosomes.at(entry2 - 1));
+				for (unsigned int i = 0; i < Chromosomes.size(); i++)
+				{
+					for (unsigned int j = 0; j < Chromosomes.at(i).GetGenes().size(); j++)
+					{
+						cout << Chromosomes.at(i).GetGenes().at(j).GetName() << "," << Chromosomes.at(i).GetGenes().at(j).GetTraitType() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleA().getName() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleA().getType() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleA().getNS() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleB().getName() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleB().getType() << "," << Chromosomes.at(i).GetGenes().at(j).GetAlleleB().getNS();
+					}
+				}
+			}
 		}
 		else
 		{

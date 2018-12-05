@@ -14,23 +14,11 @@ void chrom::AddGene(GeneinaBottle g)
 	this->genes.push_back(g);
 }
 
-void chrom::create(){
-
-};
-void chrom::analyze(){
-
-};
-void chrom::output(){};
-void chrom::input()
+vector<GeneinaBottle> chrom::GetGenes()
 {
+	return genes;
+}
 
-	cout << "What file would you like to export to?" << endl;
-	string inputFile;
-	getline(cin, inputFile);
-};
-void chrom::combine(){
-
-};
 chrom chrom::operator+(chrom c)
 {
 	chrom newChrom;

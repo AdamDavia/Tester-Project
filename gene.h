@@ -19,7 +19,7 @@ class GeneinaBottle
 	string GetTraitType();
 	Allele GetAlleleA();
 	Allele GetAlleleB();
-	void GetGenes();
+
 	void setAlleleA(Allele A);
 	void setAlleleB(Allele B);
 	void setGeneName(string);
